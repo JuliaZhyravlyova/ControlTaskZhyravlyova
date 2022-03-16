@@ -1,38 +1,241 @@
-<mvc:View
-	controllerName="Zhyravlyova.ControlTaskZhyravlyova.controller.Object"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:footerbar="sap.ushell.ui.footerbar">
-
-	<semantic:SemanticPage
-		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false"
-		busy="{objectView>/busy}"
+<mvc:View controllerName="Zhyravlyova.ControlTaskZhyravlyova.controller.Object" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic" xmlns:core="sap.ui.core"  xmlns:ut="sap.ui.table" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"
+	busyIndicatorDelay="0">
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}"
 		busyIndicatorDelay="{objectView>/delay}">
-
-		<semantic:titleHeading>
-			<Title text="{MaterialID}" />
-		</semantic:titleHeading>
-
-		<semantic:headerContent>
-			<ObjectNumber
-			/>
-		</semantic:headerContent>
-
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
-		</semantic:sendEmailAction>
-
-		<semantic:shareInJamAction>
-			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
-		</semantic:shareInJamAction>
-
-		<semantic:saveAsTileAction>
-			<footerbar:AddBookmarkButton id ="shareTile" title="{objectView>/saveAsTileTitle}" />
-		</semantic:saveAsTileAction>
-
+		<semantic:content>
+			<IconTabBar headerMode="Inline" id="idIconTabBarStretchContent" stretchContentHeight="true" backgroundDesign="Transparent"
+				applyContentPadding="false" expanded="{device>/isNoPhone}" select="onTabSelect" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter icon="sap-icon://list" text="{i18n>List}" key="resTable">
+						<smartForm:SmartForm editTogglable="false" useHorizontalLayout="false" editable="false">
+							<smartForm:Group title="{i18n>Maininformation}">
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{MaterialText}" editable="false" visible="true" mandatory="true" showValueHelp="false"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{MaterialDescription}" editable="false" visible="true" mandatory="true" showValueHelp="false"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="{i18n>Regioninformation}">
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{RegionText}" editable="false" visible="true"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="{i18n>Plantsinformation}">
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{PlantText}" editable="false" visible="true"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="{i18n>Creationinformation}">
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{Created}" editable="false" visible="true" mandatory="true"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{CreatedByFullName}" editable="false" visible="true" mandatory="true"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+							<smartForm:Group title="{i18n>Modificationinformation}">
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{Modified}" editable="false"/>
+								</smartForm:GroupElement>
+								<smartForm:GroupElement>
+									<smartField:SmartField value="{ModifiedByFullName}" editable="false"/>
+								</smartForm:GroupElement>
+							</smartForm:Group>
+						</smartForm:SmartForm>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://form" text="{i18n>Forms}" key="gridTable">
+						<Panel headerText="Responsive Table"  expanded="false" expandable="true">
+							<Table id="idResTable" mode="MultiSelect" inset="false" items="{ path: '/zjblessons_base_Plants', sorter: { path: 'PlantID', group: true , descending: false } }">
+									<headerToolbar>
+							<Toolbar>
+								<content>
+									<Button icon="sap-icon://delete" press="onDeletePlantlRes" ></Button>
+										<Button icon="sap-icon://fridge" press="onDeactivatePlantRes" ></Button>
+									<Button icon="sap-icon://add" press="openCreateMaterialDialog" ></Button>
+									<Input change="onInputChange"></Input>
+								</content>
+							</Toolbar>
+						</headerToolbar>
+								<columns>
+									<Column width="12em">
+										<Text text="Version"/>
+									</Column>
+									<Column minScreenWidth="Tablet" demandPopin="true">
+										<Text text="Language"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+										<Text text="PlantID"/>
+									</Column>
+									<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+										<Text text="PlantText"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="RegionID"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="RegionText"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="Created"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="CreatedBy"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="CreatedByFullName"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="CreatedByAvatar"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="Modified"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="ModifiedBy"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="ModifiedByFullName"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="ModifiedByAvatar"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="IntegrationID"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem vAlign="Middle">
+										<cells>
+											<Text text="{Version}"/>
+											<Text text="{Language}"/>
+											<Text text="{PlantID}"/>
+											<Text text="{PlantText}"/>
+											<Text text="{RegionID}"/>
+											<Text text="{RegionText}"/>
+											<Text text="{Created}"/>
+											<Text text="{CreatedBy}"/>
+											<Text text="{CreatedByFullName}"/>
+											<Text text="{CreatedByAvatar}"/>
+											<Text text="{Modified}"/>
+											<Text text="{ModifiedBy}"/>
+											<Text text="{ModifiedByFullName}"/>
+											<Text text="{ModifiedByAvatar}"/>
+											<Text text="{IntegrationID}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</Panel>
+						<Panel headerText="Grid Table" expanded="false" expandable="true">
+						<ut:Table id="table1"
+							selectionMode="MultiToggle"
+							rows="{path:'/zjblessons_base_Plants', sorter: { path: 'RegionID', group: true , descending: true }}">
+							<ut:extension>
+								<OverflowToolbar style="Clear">
+										<Button icon="sap-icon://add" press="openCreateMaterialDialog" ></Button>
+										<Button icon="sap-icon://delete" press="onDeletePlantlGrid" ></Button>
+										<Button icon="sap-icon://fridge" press="onDeactivatePlantGrid" ></Button>
+								</OverflowToolbar>
+							</ut:extension>
+							<ut:columns>
+								<ut:Column >
+									<Label text="Version" />
+									<ut:template>
+										<Text text="{Version}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="Language" />
+									<ut:template>
+										<Text text="{Language}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="PlantID" />
+									<ut:template>
+										<Text text="{PlantID}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="PlantText" />
+									<ut:template>
+										<Text text="{PlantText}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="RegionID" />
+									<ut:template>
+										<Text text="{RegionID}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="RegionText" />
+									<ut:template>
+										<Text text="{RegionText}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="Created" />
+									<ut:template>
+										<Text text="{Created}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="CreatedBy" />
+									<ut:template>
+										<Text text="{CreatedBy}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="CreatedByFullName" />
+									<ut:template>
+										<Text text="{CreatedByFullName}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="CreatedByAvatar" />
+									<ut:template>
+										<Text text="{CreatedByAvatar}" />
+									</ut:template>
+								</ut:Column>
+								<ut:Column >
+									<Label text="Modified" />
+									<ut:template>
+										<Text text="{Modified}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="ModifiedBy" />
+									<ut:template>
+										<Text text="{ModifiedBy}" />
+									</ut:template>
+								</ut:Column>	
+								<ut:Column >
+									<Label text="ModifiedByFullName" />
+									<ut:template>
+										<Text text="{ModifiedByFullName}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="ModifiedByAvatar" />
+									<ut:template>
+										<Text text="{ModifiedByAvatar}" />
+									</ut:template>
+								</ut:Column>
+									<ut:Column >
+									<Label text="IntegrationID" />
+									<ut:template>
+										<Text text="{IntegrationID}" />
+									</ut:template>
+								</ut:Column>
+							</ut:columns>
+						</ut:Table>
+						</Panel>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</semantic:content>
 	</semantic:SemanticPage>
-
 </mvc:View>

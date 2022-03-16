@@ -16,10 +16,11 @@
 					<Toolbar>
 						<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search="onSearch" width="auto"></SearchField>
 						<ToolbarSpacer/>
-						<Button text="{i18n>CreateToolbarButton}" press="onPressCreate" enabled="true" type="Default"/>
+						<Button text="Показать выбранный ИД" icon="sap-icon://add" iconFirst="true" press="onPressShow" enabled="true" type="Default"/>
+						<Button text="{i18n>CreateToolbarButton}" icon="sap-icon://create" iconFirst="true" press="onPressCreate" enabled="true" type="Default"/>
 					</Toolbar>
 				</smartTable:customToolbar>
-				<Table id="table" mode="Delete" width="auto" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growingThreshold="20" growing="true"
+				<Table id="table" mode="SingleSelectLeft" width="auto" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growingThreshold="20" growing="true"
 				growingScrollToLoad="true" updateFinished="onUpdateFinished" delete="onPressDetele">
 					<columns></columns>
 					<items>

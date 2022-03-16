@@ -61,6 +61,15 @@ sap.ui.define([
 				}, true);
 			},
 			
+			onPressShow:function() {
+				var oSelectedCont = this.byId("table").getSelectedContexts();
+				if(!oSelectedCont.length) {
+					return;
+				}
+				var sId = oSelectedCont[0].getObject("MaterialID");
+				sap.m.MessageToast.show(sId);
+			},
+			
 			
 		onPressCreate: function(oEvent) {
 				if (!this.oDialog) {
