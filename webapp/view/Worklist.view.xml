@@ -1,0 +1,35 @@
+<mvc:View controllerName="Zhyravlyova.ControlTaskZhyravlyova.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<smartFilterBar:SmartFilterBar id="smartFilterBar" useDateRangeType="true" entitySet="zjblessons_base_Materials" persistencyKey="pk_MaterialsSF" >
+			</smartFilterBar:SmartFilterBar>
+		</semantic:headerContent>
+		<semantic:content>
+			<smartTable:SmartTable id="smartTableMaterialsId" entitySet="zjblessons_base_Materials" smartFilterId="smartFilterBar"
+				useExportToExcel="true" tableType="ResponsiveTable" useVariantManagement="true" useTablePersonalisation="true"
+				header="{i18n>Materials}" showRowCount="true" persistencyKey="pk_MaterialsSF" enableAutoBinding="true" showFullScreenButton="false">
+				<smartTable:customToolbar>
+					<Toolbar>
+						<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search="onSearch" width="auto"></SearchField>
+						<ToolbarSpacer/>
+						<Button text="{i18n>CreateToolbarButton}" press="onPressCreate" enabled="true" type="Default"/>
+					</Toolbar>
+				</smartTable:customToolbar>
+				<Table id="table" mode="Delete" width="auto" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growingThreshold="20" growing="true"
+				growingScrollToLoad="true" updateFinished="onUpdateFinished" delete="onPressDetele">
+					<columns></columns>
+					<items>
+						<ColumnListItem type="Navigation" press="onPress"></ColumnListItem>
+					</items>
+				</Table>	
+			</smartTable:SmartTable>
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+	</semantic:SemanticPage>
+</mvc:View>
